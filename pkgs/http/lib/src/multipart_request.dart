@@ -87,7 +87,7 @@ class MultipartRequest extends BaseRequest {
   ByteStream finalize() {
     // TODO: freeze fields and files
     final boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
+    headers['Content-Type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
     return ByteStream(_finalize(boundary));
   }
@@ -118,10 +118,10 @@ class MultipartRequest extends BaseRequest {
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForField(String name, String value) {
     var header =
-        'content-disposition: form-data; name="${_browserEncode(name)}"';
+        'Content-Disposition: form-data; name="${_browserEncode(name)}"';
     if (!isPlainAscii(value)) {
       header = '$header\r\n'
-          'content-type: text/plain; charset=utf-8\r\n'
+          'Content-Type: text/plain; charset=utf-8\r\n'
           'content-transfer-encoding: binary';
     }
     return '$header\r\n\r\n';
@@ -131,8 +131,8 @@ class MultipartRequest extends BaseRequest {
   ///
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
-    var header = 'content-type: ${file.contentType}\r\n'
-        'content-disposition: form-data; name="${_browserEncode(file.field)}"';
+    var header = 'Content-Type: ${file.contentType}\r\n'
+        'Content-Disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
       header = '$header; filename="${_browserEncode(file.filename!)}"';
