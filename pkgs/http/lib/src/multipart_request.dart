@@ -138,9 +138,12 @@ class MultipartRequest extends BaseRequest {
     if (file.filename != null) {
       // header = '$header; filename="${_browserEncode(file.filename!)}"';
       header =
-          'Content-Disposition: form-data; name="${_browserEncode(file.field)}"\r\n'
-          'filename="${_browserEncode(file.filename!)}"'
+          'Content-Disposition: form-data; name="${_browserEncode(file.field)}"; filename="${_browserEncode(file.filename!)}"\r\n'
           'Content-Type: ${file.contentType}';
+
+      // 'Content-Disposition: form-data; name="${_browserEncode(file.field)}";'
+      // 'filename="${_browserEncode(file.filename!)}"\r\n'
+      // 'Content-Type: ${file.contentType}';
     }
     return '$header\r\n\r\n';
   }
